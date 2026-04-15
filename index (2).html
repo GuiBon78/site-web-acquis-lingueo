@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lingueo — Formation linguistique professionnelle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#f8f8f6;--white:#ffffff;--ink:#0f0f0d;--ink-60:#5c5c58;--ink-30:#9e9e99;--ink-10:#f0f0ec;
+  --border:#e8e8e4;--blue:#1847f0;--blue-dk:#0f32cc;--blue-lt:#eef1ff;--blue-mid:#b8c4fb;
+  --accent:#0dab5c;--acc-lt:#e8f7ef;--nav-h:64px;--max:1160px;
+  --col:min(var(--max),calc(100% - 48px));
+  --font-hd:'Bricolage Grotesque',sans-serif;--font-bd:'Inter',sans-serif;
+  --r:12px;--r-sm:8px;--r-lg:18px;
+  --shadow:0 1px 3px rgba(15,15,13,.06),0 6px 24px rgba(15,15,13,.07);
+  --shadow-lg:0 2px 6px rgba(15,15,13,.06),0 16px 56px rgba(15,15,13,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-bd);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;outline:none;border:none}
+::selection{background:var(--blue-lt)}
+
+/* NAV */
+.nav{position:fixed;top:0;inset-inline:0;z-index:200;height:var(--nav-h);background:rgba(248,248,246,.92);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 2px 16px rgba(15,15,13,.08)}
+.nav-inner{width:var(--col);margin:0 auto;height:100%;display:flex;align-items:center}
+.logo{display:flex;align-items:center;gap:11px;font-family:var(--font-hd);font-size:17px;font-weight:700;letter-spacing:-.03em;color:var(--ink);flex-shrink:0;margin-right:36px}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:var(--blue);display:grid;place-items:center;box-shadow:0 3px 10px rgba(24,71,240,.28)}
+.logo-mark svg{width:16px;height:16px}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-a{background:none;cursor:pointer;font-size:13.5px;font-weight:400;color:var(--ink-60);padding:7px 12px;border-radius:7px;transition:color .14s,background .14s;white-space:nowrap}
+.nav-a:hover{color:var(--ink);background:rgba(15,15,13,.055)}
+.nav-a.active{color:var(--ink);font-weight:500;background:rgba(15,15,13,.055)}
+.nav-end{margin-left:auto;display:flex;align-items:center;gap:8px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-weight:500;border-radius:var(--r-sm);transition:all .16s;white-space:nowrap}
+.btn-sm{font-size:13px;padding:8px 16px}
+.btn-md{font-size:14px;padding:11px 22px}
+.btn-lg{font-size:15.5px;padding:14px 30px;border-radius:var(--r);font-weight:600}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--ink-60)}
+.btn-outline:hover{border-color:var(--ink-30);color:var(--ink)}
+.btn-ghost{background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{background:rgba(255,255,255,.2)}
+.btn-blue{background:var(--blue);color:white;box-shadow:0 1px 2px rgba(24,71,240,.15),0 4px 14px rgba(24,71,240,.22)}
+.btn-blue:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 2px 6px rgba(24,71,240,.2),0 8px 28px rgba(24,71,240,.28)}
+.btn-white{background:white;color:var(--ink)}
+.btn-white:hover{background:#f5f5f3;transform:translateY(-1px)}
+.btn-dark{background:var(--ink);color:white}
+.btn-dark:hover{background:#1a1a18;transform:translateY(-1px)}
+
+/* PAGE */
+.page{padding-top:var(--nav-h)}
+
+/* SECTION */
+section{width:var(--col);margin:0 auto;padding:88px 0}
+section+section{border-top:1px solid var(--border)}
+.section-label{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.section-label::before{content:'';width:20px;height:2px;background:var(--blue);border-radius:2px}
+.section-title{font-family:var(--font-hd);font-weight:700;font-size:clamp(1.9rem,3vw,2.6rem);letter-spacing:-.04em;line-height:1.08;color:var(--ink);margin-bottom:14px}
+.section-lead{font-size:16px;color:var(--ink-60);line-height:1.7;max-width:58ch}
+
+/* CARD */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow)}
+
+/* HERO */
+#hero{padding:0;width:100%}
+.hero-wrap{background:var(--ink);padding:96px 0 0;position:relative;overflow:hidden}
+.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 80% 30%,rgba(24,71,240,.22),transparent),radial-gradient(ellipse 35% 50% at 15% 70%,rgba(24,71,240,.09),transparent);pointer-events:none}
+.hero-inner{width:var(--col);margin:0 auto;position:relative;z-index:1}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:500;color:rgba(255,255,255,.7);letter-spacing:.04em;margin-bottom:28px}
+.kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.hero-h1{font-family:var(--font-hd);font-weight:800;font-size:clamp(2.7rem,5vw,4.4rem);letter-spacing:-.05em;line-height:1.0;color:white;max-width:15ch;margin-bottom:22px}
+.hero-h1 em{font-style:normal;color:var(--blue-mid)}
+.hero-sub{font-size:16.5px;color:rgba(255,255,255,.55);line-height:1.7;max-width:52ch;margin-bottom:36px;font-weight:300}
+.hero-actions{display:flex;align-items:center;gap:12px;margin-bottom:72px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.08)}
+.hstat{padding:28px 0 32px;border-right:1px solid rgba(255,255,255,.08)}
+.hstat:last-child{border-right:none}
+.hstat-val{font-family:var(--font-hd);font-size:2.2rem;font-weight:800;color:white;letter-spacing:-.05em;line-height:1;margin-bottom:6px}
+.hstat-label{font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.45;max-width:18ch}
+.hstat+.hstat{padding-left:28px}
+
+/* TRUST STRIP */
+.trust-strip{width:var(--col);margin:0 auto;background:var(--white);border:1px solid var(--border);border-radius:0 0 var(--r-lg) var(--r-lg);border-top:none;padding:0 36px;display:flex;align-items:center;box-shadow:var(--shadow)}
+.trust-label{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-30);font-weight:500;white-space:nowrap;flex-shrink:0;margin-right:36px}
+.trust-logos{display:flex;align-items:center;flex:1;justify-content:space-between}
+.trust-logo{font-family:var(--font-hd);font-size:14.5px;font-weight:600;color:var(--ink-30);letter-spacing:-.01em;transition:color .15s;cursor:default;padding:20px 0}
+.trust-logo:hover{color:var(--ink-60)}
+
+/* STICKY SUB-NAV */
+.sticky-subnav{position:sticky;top:var(--nav-h);z-index:90;background:rgba(248,248,246,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.sticky-subnav-inner{width:var(--col);margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;padding:12px 0}
+.sticky-subnav-inner::-webkit-scrollbar{display:none}
+.sn-btn{flex-shrink:0;background:none;cursor:pointer;font-size:13px;color:var(--ink-60);padding:6px 14px;border-radius:7px;transition:all .14s;white-space:nowrap}
+.sn-btn:hover{color:var(--ink);background:rgba(15,15,13,.055)}
+.sn-btn.active{color:var(--blue);font-weight:600;background:var(--blue-lt)}
+
+/* OVERVIEW */
+.overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.ov-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.ov-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.ov-icon{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-size:19px;background:var(--blue-lt);flex-shrink:0}
+.ov-card h3{font-family:var(--font-hd);font-size:.97rem;font-weight:700;letter-spacing:-.025em}
+.ov-card p{font-size:13.5px;color:var(--ink-60);line-height:1.6}
+.ov-num{margin-top:auto;padding-top:14px;border-top:1px solid var(--border);font-family:var(--font-hd);font-size:1.6rem;font-weight:800;letter-spacing:-.04em;color:var(--blue)}
+.ov-num span{font-size:12px;font-weight:500;color:var(--ink-30);font-family:var(--font-bd);letter-spacing:0;display:block;margin-top:2px}
+
+/* PRODUCTS */
+.product-wrap{margin-top:52px;display:flex;flex-direction:column;gap:20px}
+.product-row{display:grid;grid-template-columns:340px 1fr;background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s}
+.product-row:hover{box-shadow:var(--shadow-lg)}
+.product-row.rev{grid-template-columns:1fr 340px}
+.product-row.rev .pv{order:2;border-left:none;border-right:1px solid var(--border)}
+.product-row.rev .pc{order:1}
+.pc{padding:40px 44px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.prod-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 11px;border-radius:99px}
+.t-eval{background:var(--blue-lt);color:var(--blue)}
+.t-form{background:var(--acc-lt);color:var(--accent)}
+.t-cert{background:#fef3e8;color:#c96300}
+.prod-name{font-family:var(--font-hd);font-size:2rem;font-weight:800;letter-spacing:-.05em;color:var(--ink)}
+.prod-desc{font-size:14.5px;color:var(--ink-60);line-height:1.7}
+.feat{list-style:none;display:flex;flex-direction:column;gap:9px}
+.feat li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink)}
+.feat li::before{content:'';width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;background:var(--blue-lt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='7' viewBox='0 0 9 7'%3E%3Cpolyline points='1,3.5 3.5,6 8,1' fill='none' stroke='%231847f0' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center}
+.pv{border-left:1px solid var(--border);background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 32px;gap:16px;text-align:center;position:relative;overflow:hidden}
+.pv::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(24,71,240,.04),transparent)}
+.pv-num{font-family:var(--font-hd);font-size:3.8rem;font-weight:800;letter-spacing:-.06em;color:var(--blue);line-height:1}
+.pv-lbl{font-size:13px;color:var(--ink-60);line-height:1.5;max-width:20ch}
+.pv-pill{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:99px;padding:8px 14px;font-size:12.5px;font-weight:500;color:var(--ink);box-shadow:var(--shadow)}
+
+/* METHOD */
+.method-hero{background:var(--ink);border-radius:var(--r-lg);padding:48px;margin-bottom:20px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.method-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 90% 50%,rgba(24,71,240,.2),transparent)}
+.method-hero-inner{position:relative;z-index:1}
+.method-hero h2{font-family:var(--font-hd);font-weight:800;font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.04em;color:white;margin-bottom:10px}
+.method-hero p{color:rgba(255,255,255,.55);font-size:15px;line-height:1.7;max-width:58ch}
+.method-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;box-shadow:var(--shadow)}
+.mc-num{font-family:var(--font-hd);font-size:3.2rem;font-weight:800;letter-spacing:-.06em;color:var(--border);line-height:1;margin-bottom:16px}
+.mc h3{font-family:var(--font-hd);font-size:1.2rem;font-weight:700;letter-spacing:-.03em;margin-bottom:10px}
+.mc p{font-size:14px;color:var(--ink-60);line-height:1.7}
+.mc ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.mc ul li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink)}
+.mc ul li::before{content:'';width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;background:var(--blue-lt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='7' viewBox='0 0 9 7'%3E%3Cpolyline points='1,3.5 3.5,6 8,1' fill='none' stroke='%231847f0' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center}
+.method-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.mkpi{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center}
+.mkpi strong{font-family:var(--font-hd);font-size:2rem;font-weight:800;letter-spacing:-.05em;color:var(--blue);display:block;margin-bottom:4px}
+.mkpi span{font-size:12.5px;color:var(--ink-60);line-height:1.4}
+
+/* CLIENTS */
+.clients-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.cc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.cc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.cc-top{padding:22px 24px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border)}
+.cc-name{font-family:var(--font-hd);font-size:1.05rem;font-weight:700;letter-spacing:-.025em}
+.cc-tag{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:99px;background:var(--ink-10);color:var(--ink-60)}
+.cc-body{padding:20px 24px;flex:1;display:flex;flex-direction:column;gap:14px}
+.cc-desc{font-size:13.5px;color:var(--ink-60);line-height:1.6}
+.cc-metrics{display:flex;gap:10px;flex-wrap:wrap}
+.metric{background:var(--blue-lt);border-radius:var(--r-sm);padding:8px 13px}
+.metric strong{display:block;font-family:var(--font-hd);font-size:1.1rem;font-weight:800;letter-spacing:-.04em;color:var(--blue)}
+.metric span{display:block;font-size:11px;color:var(--blue);opacity:.7;margin-top:1px}
+
+/* QUOTES */
+.quotes-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.qc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:30px 32px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.qc::after{content:'"';font-family:Georgia,serif;font-size:96px;font-weight:700;color:var(--blue-lt);line-height:1;position:absolute;top:8px;right:20px;pointer-events:none}
+.qc-text{font-size:15px;line-height:1.7;color:var(--ink);margin-bottom:18px;font-style:italic}
+.qc-author strong{display:block;font-size:13.5px;font-weight:600}
+.qc-author span{font-size:12.5px;color:var(--ink-60)}
+
+/* SEGMENTS */
+.seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.sc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.sc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.sc-head{padding:28px 28px 24px;border-bottom:1px solid var(--border)}
+.sc-icon{font-size:26px;margin-bottom:14px}
+.sc-head h3{font-family:var(--font-hd);font-size:1.15rem;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
+.sc-head p{font-size:13.5px;color:var(--ink-60);line-height:1.6}
+.sc-body{padding:22px 28px;flex:1;display:flex;flex-direction:column;gap:12px}
+.sf{list-style:none;display:flex;flex-direction:column;gap:8px}
+.sf li{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink)}
+.sf li::before{content:'';width:16px;height:16px;border-radius:4px;flex-shrink:0;margin-top:1px;background:var(--blue-lt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='7' viewBox='0 0 9 7'%3E%3Cpolyline points='1,3.5 3.5,6 8,1' fill='none' stroke='%231847f0' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center}
+.sc-example{margin-top:auto;padding:14px;background:var(--blue-lt);border-radius:var(--r-sm)}
+.sc-example strong{display:block;font-size:11.5px;font-weight:600;color:var(--blue);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.sc-example p{font-size:12.5px;color:var(--ink);line-height:1.5}
+.sc-foot{padding:16px 28px;border-top:1px solid var(--border)}
+
+/* RESOURCES */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.rc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.rc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.rc-cover{height:130px;display:flex;align-items:flex-end;padding:20px}
+.rc-type{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.7);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:5px;padding:4px 10px}
+.rc-body{padding:22px 24px;flex:1;display:flex;flex-direction:column;gap:10px}
+.rc-body h4{font-family:var(--font-hd);font-size:.97rem;font-weight:700;letter-spacing:-.025em;line-height:1.3}
+.rc-body p{font-size:13px;color:var(--ink-60);line-height:1.6;flex:1}
+.rc-foot{padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.rc-foot span{font-size:12.5px;color:var(--ink-30)}
+.rc-link{font-size:13px;font-weight:600;color:var(--blue);cursor:pointer}
+.rc-link:hover{text-decoration:underline}
+.res-banner{margin-top:16px;background:var(--ink);border-radius:var(--r-lg);padding:36px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.res-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 80% at 90% 50%,rgba(24,71,240,.18),transparent)}
+.res-banner-copy{position:relative;z-index:1}
+.res-banner-copy h3{font-family:var(--font-hd);font-size:1.4rem;font-weight:700;color:white;letter-spacing:-.03em;margin-bottom:6px}
+.res-banner-copy p{font-size:14px;color:rgba(255,255,255,.5)}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;align-items:start;margin-top:48px}
+.contact-pts{display:flex;flex-direction:column;gap:10px}
+.cpt{display:flex;align-items:flex-start;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.cpt-icon{width:38px;height:38px;border-radius:9px;flex-shrink:0;background:var(--blue-lt);display:grid;place-items:center;font-size:17px}
+.cpt-text strong{display:block;font-size:13.5px;font-weight:600;margin-bottom:2px}
+.cpt-text span{font-size:12.5px;color:var(--ink-60)}
+.contact-btns{display:flex;gap:10px;margin-top:4px}
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;box-shadow:var(--shadow-lg)}
+.form-card h3{font-family:var(--font-hd);font-size:1.2rem;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
+.form-card>p{font-size:13px;color:var(--ink-60);margin-bottom:22px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.field{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--ink);font-size:14px;transition:border-color .15s,background .15s}
+.field:focus{border-color:var(--blue);background:var(--white)}
+select.field{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 5L10 1' fill='none' stroke='%239e9e99' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px}
+textarea.field{min-height:110px;resize:vertical}
+.form-note{font-size:12px;color:var(--ink-30);margin-top:10px;text-align:center}
+.form-success{display:none;text-align:center;padding:32px 0}
+.form-success.show{display:block}
+.fs-icon{font-size:44px;margin-bottom:14px}
+.form-success h3{font-family:var(--font-hd);font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.form-success p{font-size:14px;color:var(--ink-60)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);background:var(--white);padding:40px 0}
+.footer-inner{width:var(--col);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-hd);font-size:16px;font-weight:700;letter-spacing:-.03em}
+.footer-links{display:flex;gap:20px}
+.fl{font-size:13px;color:var(--ink-60);cursor:pointer;transition:color .14s}
+.fl:hover{color:var(--ink)}
+.footer-copy{font-size:12.5px;color:var(--ink-30)}
+
+/* CHAT */
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:300}
+.chat-btn{width:54px;height:54px;border-radius:16px;background:var(--blue);color:white;box-shadow:0 4px 16px rgba(24,71,240,.35);display:grid;place-items:center;cursor:pointer;transition:transform .2s,box-shadow .2s;border:none}
+.chat-btn:hover{transform:scale(1.06);box-shadow:0 8px 28px rgba(24,71,240,.4)}
+.chat-btn svg{width:22px;height:22px}
+.chat-panel{position:absolute;bottom:66px;right:0;width:320px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);overflow:hidden;display:none;flex-direction:column}
+.chat-panel.open{display:flex}
+.chat-head{background:var(--ink);padding:16px 18px;display:flex;align-items:center;justify-content:space-between}
+.ch-info{display:flex;align-items:center;gap:10px}
+.ch-av{width:34px;height:34px;border-radius:10px;background:var(--blue);display:grid;place-items:center;font-size:16px;flex-shrink:0}
+.ch-name{font-size:13.5px;font-weight:600;color:white}
+.ch-status{font-size:11.5px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:5px}
+.ch-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.ch-close{background:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:20px;line-height:1;padding:0 4px;transition:color .14s}
+.ch-close:hover{color:white}
+.chat-msgs{padding:14px;display:flex;flex-direction:column;gap:10px;max-height:240px;overflow-y:auto}
+.msg{max-width:88%;font-size:13.5px;line-height:1.55}
+.bot{background:var(--bg);border:1px solid var(--border);border-radius:10px 10px 10px 3px;padding:10px 13px;color:var(--ink)}
+.usr{align-self:flex-end;background:var(--blue);border-radius:10px 10px 3px 10px;padding:10px 13px;color:white}
+.chat-inp{padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.chat-inp input{flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;transition:border-color .14s}
+.chat-inp input:focus{border-color:var(--blue);background:var(--white)}
+.chat-send{width:32px;height:32px;border-radius:8px;background:var(--blue);color:white;display:grid;place-items:center;cursor:pointer;flex-shrink:0;border:none}
+.chat-send svg{width:14px;height:14px}
+
+/* UTILS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+@media(max-width:1000px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .overview-grid,.clients-grid,.seg-grid,.res-grid{grid-template-columns:repeat(2,1fr)}
+  .method-cols{grid-template-columns:1fr 1fr}
+  .product-row,.product-row.rev{grid-template-columns:1fr}
+  .pv{border-left:none!important;border-right:none!important;border-top:1px solid var(--border);min-height:140px}
+  .contact-wrap{grid-template-columns:1fr}
+  .method-kpis{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:680px){
+  :root{--col:min(100%,calc(100% - 32px))}
+  .nav-links{display:none}
+  .nav-end .btn-outline{display:none}
+  .hero-h1{font-size:2.4rem}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .trust-strip{padding:0 20px}
+  .trust-logos{gap:0;flex-wrap:wrap;justify-content:flex-start}
+  .trust-logo{padding:14px 8px;font-size:13px}
+  .g2,.overview-grid,.clients-grid,.seg-grid,.res-grid,.quotes-row,.method-cols{grid-template-columns:1fr}
+  .method-kpis{grid-template-columns:1fr 1fr}
+  section{padding:60px 0}
+  .res-banner{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 4h5M3 8h8M3 12h5" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      Lingueo
+    </a>
+    <nav class="nav-links">
+      <button class="nav-a" data-to="pourquoi">Pourquoi Lingueo</button>
+      <button class="nav-a" data-to="produits">Nos produits</button>
+      <button class="nav-a" data-to="methode">Méthode</button>
+      <button class="nav-a" data-to="clients">Références</button>
+      <button class="nav-a" data-to="segments">Pour qui ?</button>
+      <button class="nav-a" data-to="ressources">Ressources</button>
+    </nav>
+    <div class="nav-end">
+      <button class="btn btn-outline btn-sm" data-to="ressources">Livres blancs</button>
+      <button class="btn btn-blue btn-sm" data-to="contact">Demander une démo</button>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-wrap">
+    <div class="hero-inner">
+      <div class="hero-kicker"><span class="kicker-dot"></span>Formation linguistique professionnelle — France</div>
+      <h1 class="hero-h1">Des langues qui servent <em>votre activité.</em></h1>
+      <p class="hero-sub">Lingueo accompagne les ETI, PME et grands comptes avec une approche qui va au-delà du cours de langue : évaluation par IA, formation contextualisée, service managé et certification reconnue par l'État.</p>
+      <div class="hero-actions">
+        <button class="btn btn-white btn-lg" data-to="contact">Demander une démo</button>
+        <button class="btn btn-ghost btn-lg" data-to="clients">Voir les références →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-val">100k+</div><div class="hstat-label">heures de formation déployées chaque année</div></div>
+        <div class="hstat"><div class="hstat-val">+90%</div><div class="hstat-label">taux d'engagement moyen sur nos cohortes</div></div>
+        <div class="hstat"><div class="hstat-val">18 ans</div><div class="hstat-label">d'expertise opérationnelle en France</div></div>
+        <div class="hstat"><div class="hstat-val">3e</div><div class="hstat-label">certification linguistique professionnelle en France avec LILATE</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="trust-strip">
+    <span class="trust-label">Ils nous font confiance</span>
+    <div class="trust-logos">
+      <span class="trust-logo">Air France</span>
+      <span class="trust-logo">Disney</span>
+      <span class="trust-logo">Vinci</span>
+      <span class="trust-logo">Forvis Mazars</span>
+      <span class="trust-logo">Lactalis</span>
+      <span class="trust-logo">Equance</span>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY SUBNAV -->
+<div class="sticky-subnav">
+  <div class="sticky-subnav-inner">
+    <button class="sn-btn" data-to="pourquoi">Pourquoi Lingueo</button>
+    <button class="sn-btn" data-to="produits">Nos produits</button>
+    <button class="sn-btn" data-to="methode">Méthode</button>
+    <button class="sn-btn" data-to="clients">Références</button>
+    <button class="sn-btn" data-to="segments">Pour qui ?</button>
+    <button class="sn-btn" data-to="ressources">Ressources</button>
+    <button class="sn-btn" data-to="contact">Contact</button>
+  </div>
+</div>
+
+<!-- POURQUOI -->
+<section id="pourquoi">
+  <span class="section-label">Pourquoi Lingueo</span>
+  <h2 class="section-title">Plus qu'un prestataire de cours —<br>un partenaire de la performance linguistique.</h2>
+  <p class="section-lead">La plupart des acteurs livrent des heures. Lingueo livre des résultats. Trois différenciateurs structurants : contextualisation métier, service managé et certification mesurable.</p>
+  <div class="overview-grid">
+    <div class="ov-card">
+      <div class="ov-icon">🎯</div>
+      <h3>Contextualisation métier</h3>
+      <p>Chaque parcours est construit autour des situations réelles de l'apprenant — négociation, management multiculturel, relation client premium — pas autour d'un niveau CECRL générique.</p>
+      <div class="ov-num">C.O.L.<span>Contexte Opérationnel Linguistique</span></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">⚙️</div>
+      <h3>Service managé intégré</h3>
+      <p>Onboarding, relances proactives, supervision, reporting RH lisible — tout est orchestré par Lingueo. Le client ne gère pas l'engagement des apprenants : c'est notre responsabilité.</p>
+      <div class="ov-num">−40%<span>de décrochage vs. formation non managée</span></div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">📊</div>
+      <h3>Impact mesurable</h3>
+      <p>FlashLevel positionne en 30 min. ENGAGE fait progresser. LILATE certifie. À chaque étape, des KPIs que RH, managers et direction peuvent lire sans interprétation.</p>
+      <div class="ov-num">+90%<span>d'engagement moyen sur nos cohortes</span></div>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:16px;">
+    <div class="card" style="background:var(--ink);border-color:var(--ink);position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 80% 40%,rgba(24,71,240,.22),transparent);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <p class="section-label" style="color:rgba(255,255,255,.4);">La société</p>
+        <h3 style="font-family:var(--font-hd);font-size:1.45rem;font-weight:700;letter-spacing:-.04em;color:white;margin-bottom:12px;line-height:1.15;">Un acteur français indépendant, 18 ans d'exploitation continue.</h3>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:22px;">Fondée en France, Lingueo a piloté des milliers de parcours et bâti deux marques à forte valeur de preuve : Lingueo pour la formation, LILATE pour la certification.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;"><strong style="font-family:var(--font-hd);font-size:1.5rem;font-weight:800;color:white;display:block;letter-spacing:-.04em;">17</strong><span style="font-size:12px;color:rgba(255,255,255,.4);">collaborateurs en France</span></div>
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;"><strong style="font-family:var(--font-hd);font-size:1.5rem;font-weight:800;color:white;display:block;letter-spacing:-.04em;">5 000</strong><span style="font-size:12px;color:rgba(255,255,255,.4);">apprenants par an</span></div>
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;"><strong style="font-family:var(--font-hd);font-size:1.5rem;font-weight:800;color:white;display:block;letter-spacing:-.04em;">2</strong><span style="font-size:12px;color:rgba(255,255,255,.4);">marques complémentaires</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px;">
+      <p class="section-label">Track record</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:13px;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--border);"><div style="width:36px;height:36px;border-radius:9px;background:var(--blue-lt);display:grid;place-items:center;flex-shrink:0;font-size:16px;">✈️</div><div><strong style="font-size:13.5px;font-weight:600;display:block;margin-bottom:2px;">Plus gros FNE France avec Disney & Air France</strong><span style="font-size:13px;color:var(--ink-60);">Pilotage du dispositif de formation le plus ambitieux du marché sur des populations à forte contrainte opérationnelle.</span></div></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--border);"><div style="width:36px;height:36px;border-radius:9px;background:var(--acc-lt);display:grid;place-items:center;flex-shrink:0;font-size:16px;">🌱</div><div><strong style="font-size:13.5px;font-weight:600;display:block;margin-bottom:2px;">Premier acteur avec calcul d'impact carbone (Greenly)</strong><span style="font-size:13px;color:var(--ink-60);">Chaque dispositif inclut son empreinte carbone — une réponse concrète aux exigences RSE des grands comptes.</span></div></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--border);"><div style="width:36px;height:36px;border-radius:9px;background:var(--blue-lt);display:grid;place-items:center;flex-shrink:0;font-size:16px;">🤖</div><div><strong style="font-size:13.5px;font-weight:600;display:block;margin-bottom:2px;">Premier test de positionnement enrichi à l'IA</strong><span style="font-size:13px;color:var(--ink-60);">FlashLevel : précision supérieure aux tests QCM, lecture immédiate pour RH et managers.</span></div></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;"><div style="width:36px;height:36px;border-radius:9px;background:#fef3e8;display:grid;place-items:center;flex-shrink:0;font-size:16px;">🏅</div><div><strong style="font-size:13.5px;font-weight:600;display:block;margin-bottom:2px;">Première certification professionnelle avec IA</strong><span style="font-size:13px;color:var(--ink-60);">LILATE : certification reconnue par l'État intégrant l'IA dans son évaluation — une première en France.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section id="produits">
+  <span class="section-label">Nos produits</span>
+  <h2 class="section-title">Évaluer. Former. Certifier.</h2>
+  <p class="section-lead">Trois produits complémentaires qui couvrent l'ensemble du cycle de compétences linguistiques, du diagnostic initial à la certification finale.</p>
+  <div class="product-wrap">
+    <div class="product-row">
+      <div class="pc">
+        <div><span class="prod-tag t-eval">Évaluation</span></div>
+        <div class="prod-name">FlashLevel</div>
+        <p class="prod-desc">Test de positionnement linguistique enrichi par l'IA. Résultat précis en 30 minutes, individuel ou en masse pour cartographier une cohorte entière.</p>
+        <ul class="feat"><li>Précision supérieure aux tests papier ou QCM classiques</li><li>Rapport instantané lisible par RH, manager ou recruteur</li><li>Recommandation automatique du parcours adapté</li><li>Déploiement individuel ou collectif sans friction</li></ul>
+        <div><button class="btn btn-dark btn-md" data-to="contact">Tester FlashLevel →</button></div>
+      </div>
+      <div class="pv">
+        <div class="pv-num">30 min</div>
+        <p class="pv-lbl">pour un positionnement linguistique précis et exploitable</p>
+        <div class="pv-pill">🤖 IA native</div>
+        <div class="pv-pill">📋 Rapport RH inclus</div>
+      </div>
+    </div>
+    <div class="product-row rev">
+      <div class="pc">
+        <div><span class="prod-tag t-form">Formation</span></div>
+        <div class="prod-name">ENGAGE</div>
+        <p class="prod-desc">Cours en visio individuels ou collectifs, contenus contextualisés par métier, professeurs sélectionnés — avec un service managé intégré pour tenir la promesse de progression.</p>
+        <ul class="feat"><li>Parcours construits autour des situations réelles du poste</li><li>Service managé : onboarding, relances, suivi, reporting</li><li>90% d'engagement moyen sur l'ensemble des cohortes</li><li>Compatible CPF, OPCO et plan de formation employeur</li></ul>
+        <div><button class="btn btn-blue btn-md" data-to="contact">Recevoir une proposition →</button></div>
+      </div>
+      <div class="pv">
+        <div class="pv-num">+90%</div>
+        <p class="pv-lbl">taux d'engagement moyen sur les cohortes ENGAGE</p>
+        <div class="pv-pill">⚙️ Service managé</div>
+        <div class="pv-pill">📊 Reporting RH</div>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="pc">
+        <div><span class="prod-tag t-cert">Certification</span></div>
+        <div class="prod-name">LILATE</div>
+        <p class="prod-desc">La certification professionnelle qui donne une valeur de preuve à la progression. Reconnue par l'État, avec IA intégrée — utilisable en fin de parcours ou en recrutement.</p>
+        <ul class="feat"><li>3e certification linguistique professionnelle en France</li><li>Reconnue par l'État — valeur opposable pour décideurs</li><li>IA intégrée dans l'évaluation pour fiabilité accrue</li><li>Argument de différenciation fort pour les cabinets de recrutement</li></ul>
+        <div><button class="btn btn-dark btn-md" data-to="contact">Parler certification →</button></div>
+      </div>
+      <div class="pv">
+        <div class="pv-num">3e</div>
+        <p class="pv-lbl">certification linguistique professionnelle reconnue en France</p>
+        <div class="pv-pill">🏅 Reconnu État</div>
+        <div class="pv-pill">🤖 IA évaluation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTHODE -->
+<section id="methode">
+  <div class="method-hero">
+    <div class="method-hero-inner">
+      <span class="section-label" style="color:rgba(255,255,255,.4);">Méthode Lingueo</span>
+      <h2>Ce qui nous sépare des organismes classiques tient à deux choses.</h2>
+      <p>Le C.O.L. — Contexte Opérationnel Linguistique — et le service managé. L'un définit comment le contenu est construit. L'autre garantit que l'apprenant reste dans le parcours jusqu'à la progression visible.</p>
+    </div>
+  </div>
+  <div class="method-cols">
+    <div class="mc">
+      <div class="mc-num">01</div>
+      <h3>Le C.O.L. — Contexte Opérationnel Linguistique</h3>
+      <p>Avant de choisir un niveau ou un format, Lingueo analyse les situations réelles auxquelles l'apprenant est exposé. Pas de contenu générique : le programme est aligné sur ce que la personne doit réellement faire en langue étrangère dans son poste.</p>
+      <ul><li>Analyse des situations d'exposition réelle à la langue</li><li>Identification des enjeux métier : négociation, présentation, email, réunion hybride</li><li>Construction d'un programme vécu comme utile dès le premier cours</li><li>Adhésion naturelle de l'apprenant au contenu proposé</li></ul>
+    </div>
+    <div class="mc">
+      <div class="mc-num">02</div>
+      <h3>Le service managé</h3>
+      <p>La formation distancielle échoue le plus souvent non par manque de contenu, mais par manque de cadre. Lingueo orchestre l'engagement de bout en bout — sans que le RH ait à s'en occuper.</p>
+      <ul><li>Onboarding structuré : explication, premier cours, objectif posé dès J+3</li><li>Relances proactives à intervalles définis, jamais laissées à l'initiative de l'apprenant</li><li>Supervision continue et signalement des risques de décrochage</li><li>Reporting RH synthétique lisible en 5 minutes sans interprétation</li></ul>
+    </div>
+  </div>
+  <div class="method-kpis">
+    <div class="mkpi"><strong>+90%</strong><span>taux d'engagement vs. ~55% en formation distancielle non managée</span></div>
+    <div class="mkpi"><strong>−40%</strong><span>décrochage grâce aux relances proactives et au service managé intégré</span></div>
+    <div class="mkpi"><strong>×2</strong><span>utilité perçue du contenu grâce à la contextualisation C.O.L. dès le premier cours</span></div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <span class="section-label">Références clients</span>
+  <h2 class="section-title">Ils nous ont confié leurs équipes.</h2>
+  <p class="section-lead">Des ETI industrielles aux groupes du CAC 40, Lingueo opère sur des populations très différentes avec la même exigence de service et de résultats documentés.</p>
+  <div class="clients-grid">
+    <article class="cc"><div class="cc-top"><span class="cc-name">Air France</span><span class="cc-tag">Aérien</span></div><div class="cc-body"><p class="cc-desc">Parcours d'anglais intensifs pour pilotes et personnel naviguant, avec contrainte de planning opérationnel exigeante. Coaching individuel dédié, flexibilité totale, suivi renforcé.</p><div class="cc-metrics"><div class="metric"><strong>+94%</strong><span>engagement</span></div><div class="metric"><strong>FNE</strong><span>éligible</span></div></div><ul class="feat" style="margin-top:4px;"><li>Coach dédié par apprenant</li><li>Flexibilité totale des plannings opérationnels</li></ul></div></article>
+    <article class="cc"><div class="cc-top"><span class="cc-name">Disney France</span><span class="cc-tag">Grand compte</span></div><div class="cc-body"><p class="cc-desc">Le plus grand dispositif FNE piloté par Lingueo. Plusieurs milliers d'heures, populations variées, exigence de marque élevée et coordination multi-sites en parallèle.</p><div class="cc-metrics"><div class="metric"><strong>5 000+</strong><span>heures</span></div><div class="metric"><strong>#1</strong><span>FNE France</span></div></div><ul class="feat" style="margin-top:4px;"><li>Reporting consolidé DRH groupe</li><li>Coordination multi-populations simultanée</li></ul></div></article>
+    <article class="cc"><div class="cc-top"><span class="cc-name">Vinci</span><span class="cc-tag">Infrastructure</span></div><div class="cc-body"><p class="cc-desc">Ingénieurs et cadres exposés à des interlocuteurs internationaux dans des contextes techniques. Priorité à l'anglais opérationnel et à la crédibilité en négociation.</p><div class="cc-metrics"><div class="metric"><strong>Multi-sites</strong><span>déploiement</span></div></div><ul class="feat" style="margin-top:4px;"><li>Contenu contextualisé BTP / génie civil</li><li>KPIs et reporting direction formation</li></ul></div></article>
+    <article class="cc"><div class="cc-top"><span class="cc-name">Forvis Mazars</span><span class="cc-tag">Audit & conseil</span></div><div class="cc-body"><p class="cc-desc">Managers et associés en contact permanent avec des clients EMEA. Objectif : passer d'un anglais scolaire à un anglais professionnel crédible en audit et conseil international.</p><div class="cc-metrics"><div class="metric"><strong>LILATE</strong><span>certification</span></div></div><ul class="feat" style="margin-top:4px;"><li>Parcours orientés relation client et reporting</li><li>Certification LILATE en fin de programme</li></ul></div></article>
+    <article class="cc"><div class="cc-top"><span class="cc-name">Lactalis</span><span class="cc-tag">Industrie agro</span></div><div class="cc-body"><p class="cc-desc">Groupe international avec équipes terrain, fonctions support et cadres en relation avec filiales étrangères. Trois populations, un dispositif unifié.</p><div class="cc-metrics"><div class="metric"><strong>3</strong><span>populations</span></div><div class="metric"><strong>CPF</strong><span>éligible</span></div></div><ul class="feat" style="margin-top:4px;"><li>Formats compatibles contraintes usine</li><li>Pilotage unifié DRH France</li></ul></div></article>
+    <article class="cc"><div class="cc-top"><span class="cc-name">Equance</span><span class="cc-tag">Gestion de patrimoine</span></div><div class="cc-body"><p class="cc-desc">Conseillers avec clientèle internationale fortunée. Programme premium avec exigence de ton, de registre et de finesse dans la relation client haut de gamme.</p><div class="cc-metrics"><div class="metric"><strong>Premium</strong><span>positioning</span></div></div><ul class="feat" style="margin-top:4px;"><li>Anglais finance & patrimoine haut de gamme</li><li>Formatrices expertes secteur financier</li></ul></div></article>
+  </div>
+  <div class="quotes-row">
+    <article class="qc"><p class="qc-text">Les pilotes et le personnel naviguant étaient très satisfaits. Ils ont apprécié la formation individuelle, le niveau du coach et la flexibilité du dispositif — qui leur permettait de se former sans impacter leurs rotations.</p><div class="qc-author"><strong>Responsable Expérience & Développement RH</strong><span>Air France — déploiement FNE pluriannuel</span></div></article>
+    <article class="qc"><p class="qc-text">Ce qui fait la différence avec Lingueo, c'est la capacité à tenir la promesse dans la durée. Pas seulement lancer des formations, mais les piloter, relancer, ajuster — et livrer un reporting que je peux montrer à la direction sans interprétation.</p><div class="qc-author"><strong>DRH Groupe</strong><span>ETI industrielle, 1 200 salariés — programme annuel</span></div></article>
+  </div>
+</section>
+
+<!-- SEGMENTS -->
+<section id="segments">
+  <span class="section-label">Pour qui ?</span>
+  <h2 class="section-title">Lingueo ne s'adresse pas à tout le monde. C'est ce qui nous rend utiles.</h2>
+  <p class="section-lead">Notre valeur est maximale pour trois profils d'organisations. Nous préférons décliner les cas où nous ne sommes pas les meilleurs.</p>
+  <div class="seg-grid">
+    <article class="sc"><div class="sc-head"><div class="sc-icon">🏭</div><h3>ETI — 250 à 5 000 salariés</h3><p>Assez grande pour avoir des enjeux réels de compétences linguistiques, assez agile pour décider et déployer vite. Notre terrain de jeu naturel.</p></div><div class="sc-body"><ul class="sf"><li>Multi-sites et multi-populations en parallèle</li><li>Reporting consolidé pour la DRH groupe</li><li>Compatibilité plan de formation, OPCO, CPF</li><li>Contextualisation par métier et par filiale</li></ul><div class="sc-example"><strong>Exemple type</strong><p>120 cadres à former en anglais technique, 3 filiales étrangères, besoin de reporting trimestriel pour le CODIR.</p></div></div><div class="sc-foot"><button class="btn btn-blue btn-md" style="width:100%;" data-to="contact">Parler de votre projet ETI →</button></div></article>
+    <article class="sc"><div class="sc-head"><div class="sc-icon">🏢</div><h3>PME — 50 à 250 salariés</h3><p>Un dirigeant ou une DRH légère qui veut un prestataire fiable et des résultats sans gérer l'engagement des apprenants.</p></div><div class="sc-body"><ul class="sf"><li>Mise en place rapide, zéro complexité administrative</li><li>Service managé visible dès le premier mois</li><li>Formatrice dédiée, pas de rotation d'équipe</li><li>Flexibilité de financement (CPF, plan de formation)</li></ul><div class="sc-example"><strong>Exemple type</strong><p>15 consultants exposés à des clients anglophones, direction qui veut voir les progrès sans les suivre manuellement.</p></div></div><div class="sc-foot"><button class="btn btn-outline btn-md" style="width:100%;" data-to="contact">Discuter de votre contexte →</button></div></article>
+    <article class="sc"><div class="sc-head"><div class="sc-icon">🔍</div><h3>Cabinets de recrutement</h3><p>FlashLevel et LILATE transforment la promesse linguistique en preuve documentée — un avantage concurrentiel direct.</p></div><div class="sc-body"><ul class="sf"><li>FlashLevel pour objectiver le niveau en 30 min par candidat</li><li>LILATE pour certifier et rendre le niveau opposable</li><li>Rapport partageable avec le client recruteur</li><li>Différenciation vs. auto-déclaration de niveau</li></ul><div class="sc-example"><strong>Exemple type</strong><p>40 candidats / mois à évaluer sur leur niveau d'anglais avec un livrable clair pour le client final.</p></div></div><div class="sc-foot"><button class="btn btn-outline btn-md" style="width:100%;" data-to="contact">Parler du partenariat cabinet →</button></div></article>
+  </div>
+</section>
+
+<!-- RESSOURCES -->
+<section id="ressources">
+  <span class="section-label">Ressources</span>
+  <h2 class="section-title">Des contenus pour les décideurs formation.</h2>
+  <p class="section-lead">Livres blancs, guides pratiques et outils d'aide à la décision à destination des DRH, responsables formation et dirigeants.</p>
+  <div class="res-grid">
+    <article class="rc"><div class="rc-cover" style="background:linear-gradient(135deg,#0a1631,#1847f0);"><span class="rc-type">Livre blanc</span></div><div class="rc-body"><h4>Le guide CPF 2026 pour les DRH</h4><p>Nouvelles règles, reste à charge, montages co-financement optimisés — 28 pages pour décider vite sur votre plan de formation.</p></div><div class="rc-foot"><span>28 pages • PDF</span><span class="rc-link" data-to="contact">Télécharger →</span></div></article>
+    <article class="rc"><div class="rc-cover" style="background:linear-gradient(135deg,#0a2a1a,#0dab5c);"><span class="rc-type">Guide pratique</span></div><div class="rc-body"><h4>Zéro décrochage en formation distancielle</h4><p>Checklist onboarding, scripts de relance testés, modèle de reporting — le kit complet du service managé appliqué à la formation linguistique.</p></div><div class="rc-foot"><span>Gratuit • PDF</span><span class="rc-link" data-to="contact">Télécharger →</span></div></article>
+    <article class="rc"><div class="rc-cover" style="background:linear-gradient(135deg,#1a0d2e,#7c3aed);"><span class="rc-type">Outil ROI</span></div><div class="rc-body"><h4>Mesurer le ROI d'une formation linguistique</h4><p>Modèle de calcul ROI, KPIs par segment, template CODIR — passer du reporting d'assiduité à la démonstration d'impact business.</p></div><div class="rc-foot"><span>Modèle • Excel + PDF</span><span class="rc-link" data-to="contact">Télécharger →</span></div></article>
+  </div>
+  <div class="res-banner">
+    <div class="res-banner-copy"><h3>Recevoir le kit complet Lingueo</h3><p>Les 3 ressources + une analyse gratuite de votre dispositif actuel par un consultant.</p></div>
+    <button class="btn btn-white btn-lg" data-to="contact" style="position:relative;z-index:1;">Recevoir le kit →</button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-label">Contact</span>
+  <h2 class="section-title">Parlons de votre projet.</h2>
+  <p class="section-lead">Un consultant Lingueo analyse votre contexte et vous propose une démo produit personnalisée sous 48h.</p>
+  <div class="contact-wrap">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="contact-pts">
+        <div class="cpt"><div class="cpt-icon">🎯</div><div class="cpt-text"><strong>Démo FlashLevel, ENGAGE ou LILATE</strong><span>Présentation personnalisée en visio, 45 minutes chrono.</span></div></div>
+        <div class="cpt"><div class="cpt-icon">📋</div><div class="cpt-text"><strong>Étude de cas gratuite</strong><span>On analyse votre dispositif actuel et on identifie les leviers prioritaires ensemble.</span></div></div>
+        <div class="cpt"><div class="cpt-icon">📦</div><div class="cpt-text"><strong>Téléchargement des ressources</strong><span>Accès aux livres blancs, guides et outils ROI Lingueo.</span></div></div>
+      </div>
+      <div class="contact-btns">
+        <button class="btn btn-outline btn-md" id="btnCall">📞 Appeler Lingueo</button>
+        <button class="btn btn-outline btn-md" id="btnWA">💬 WhatsApp</button>
+      </div>
+      <div class="card" style="background:var(--blue-lt);border-color:var(--blue-mid);"><p style="font-size:13.5px;color:var(--ink);line-height:1.65;"><strong>Réponse garantie sous 24h ouvrées.</strong> Depuis 18 ans, chaque prospect est traité comme un client — avec une écoute du contexte avant toute proposition commerciale.</p></div>
+    </div>
+    <div class="form-card">
+      <h3>Demande de contact</h3>
+      <p>Décrivez votre contexte en 3 lignes. On fait le reste.</p>
+      <div class="form-success" id="formSuccess"><div class="fs-icon">✅</div><h3>Demande envoyée !</h3><p>Un consultant Lingueo reviendra vers vous sous 24h ouvrées.</p><button class="btn btn-outline btn-md" style="margin-top:16px;" onclick="document.getElementById('ressources').scrollIntoView({behavior:'smooth'})">Voir les ressources</button></div>
+      <form id="mainForm">
+        <div class="form-row"><input class="field" type="text" placeholder="Prénom *" required/><input class="field" type="text" placeholder="Nom *" required/></div>
+        <div class="form-row"><input class="field" type="email" placeholder="Email professionnel *" required/><input class="field" type="text" placeholder="Entreprise *" required/></div>
+        <div class="form-row" style="margin-bottom:12px;"><select class="field"><option value="">Type d'organisation</option><option>Cabinet de recrutement</option><option>PME (50–250 sal.)</option><option>ETI (250–5 000 sal.)</option><option>Grand compte / CAC40</option></select><select class="field"><option value="">Objet de la demande</option><option>Démo FlashLevel</option><option>Formation ENGAGE</option><option>Certification LILATE</option><option>Ressources / livres blancs</option><option>Partenariat cabinet</option></select></div>
+        <textarea class="field" style="margin-bottom:14px;" placeholder="Décrivez votre contexte, le volume de personnes concernées et votre objectif prioritaire."></textarea>
+        <button class="btn btn-blue btn-lg" type="submit" style="width:100%;">Envoyer ma demande →</button>
+        <p class="form-note">🔒 Vos données restent confidentielles. Aucune revente, aucun spam.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-mark" style="width:28px;height:28px;border-radius:8px;"><svg viewBox="0 0 16 16" fill="none" style="width:13px;height:13px;"><path d="M3 4h5M3 8h8M3 12h5" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      Lingueo
+    </div>
+    <nav class="footer-links">
+      <span class="fl" data-to="pourquoi">Pourquoi Lingueo</span>
+      <span class="fl" data-to="produits">Produits</span>
+      <span class="fl" data-to="methode">Méthode</span>
+      <span class="fl" data-to="clients">Références</span>
+      <span class="fl" data-to="ressources">Ressources</span>
+      <span class="fl" data-to="contact">Contact</span>
+    </nav>
+    <span class="footer-copy">© 2026 Lingueo</span>
+  </div>
+</footer>
+
+<!-- CHAT -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-head">
+      <div class="ch-info"><div class="ch-av">💬</div><div><div class="ch-name">Assistant Lingueo</div><div class="ch-status">En ligne</div></div></div>
+      <button class="ch-close" id="chatClose">×</button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg bot">Bonjour 👋 Vous cherchez à former une équipe, certifier des collaborateurs ou évaluer des candidats ?</div>
+    </div>
+    <div class="chat-inp">
+      <input type="text" id="chatInput" placeholder="Votre message…"/>
+      <button class="chat-send" id="chatSend"><svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-btn" id="chatToggle">
+    <svg viewBox="0 0 22 22" fill="none"><path d="M11 2C6.03 2 2 5.92 2 10.73c0 2.05.73 3.94 1.95 5.43L3 20l4.13-.87A9.26 9.26 0 0011 19.46c4.97 0 9-3.92 9-8.73S15.97 2 11 2z" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<script>
+// scroll helper
+function goTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+
+// all data-to buttons
+document.querySelectorAll('[data-to]').forEach(b=>{
+  b.addEventListener('click',()=>goTo(b.dataset.to));
+});
+
+// nav scroll shadow
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>10)},{passive:true});
+
+// active link on scroll
+const sections=['pourquoi','produits','methode','clients','segments','ressources','contact'];
+const allNavBtns=document.querySelectorAll('.nav-a,.sn-btn');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      allNavBtns.forEach(b=>b.classList.toggle('active',b.dataset.to===e.target.id));
+    }
+  });
+},{rootMargin:'-25% 0px -65% 0px'});
+sections.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el)});
+
+// form
+document.getElementById('mainForm')?.addEventListener('submit',e=>{
+  e.preventDefault();
+  e.target.style.display='none';
+  document.getElementById('formSuccess').classList.add('show');
+});
+
+// fake buttons
+document.getElementById('btnCall')?.addEventListener('click',()=>alert('Simulation — redirection vers le numéro commercial Lingueo.'));
+document.getElementById('btnWA')?.addEventListener('click',()=>alert('Simulation — ouverture WhatsApp Lingueo.'));
+
+// resource links
+document.querySelectorAll('.rc-link').forEach(l=>l.addEventListener('click',()=>goTo('contact')));
+
+// chat
+const chatPanel=document.getElementById('chatPanel');
+document.getElementById('chatToggle').addEventListener('click',()=>chatPanel.classList.toggle('open'));
+document.getElementById('chatClose').addEventListener('click',()=>chatPanel.classList.remove('open'));
+const chatMsgs=document.getElementById('chatMsgs');
+const chatInput=document.getElementById('chatInput');
+const replies=[
+  "C'est un cas très courant chez nos clients ETI. Je recommande de commencer par FlashLevel pour cartographier les niveaux — la démo est gratuite.",
+  "Bien sûr ! Remplissez le formulaire de contact et un consultant vous rappelle sous 24h avec une proposition personnalisée.",
+  "LILATE est particulièrement adapté en recrutement pour objectiver les niveaux. Souhaitez-vous une fiche produit détaillée ?",
+  "Notre service managé s'occupe de tout — onboarding, relances, reporting. Le RH ne gère pas l'engagement des apprenants.",
+];
+let ri=0;
+function sendMsg(){
+  const val=chatInput.value.trim();if(!val)return;
+  const u=document.createElement('div');u.className='msg usr';u.textContent=val;
+  chatMsgs.appendChild(u);chatInput.value='';chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  setTimeout(()=>{
+    const b=document.createElement('div');b.className='msg bot';b.textContent=replies[ri++%replies.length];
+    chatMsgs.appendChild(b);chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  },700);
+}
+document.getElementById('chatSend').addEventListener('click',sendMsg);
+chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg()});
+</script>
+</body>
+</html>
